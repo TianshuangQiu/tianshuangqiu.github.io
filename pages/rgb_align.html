@@ -272,12 +272,12 @@
   We observe that the MSE alignment strategy fails in Emir, Melons, and Lady.
   This is due to the luminencne in the RGB channels not aligning, and the
   strategy going off course because of it. Cross correlation improves this, and
-  no image is greatly color shifted like MSE. However, in Emir’s photo for
+  no image is greatly color shifted like MSE. However, in Emir's photo for
   example, the channels are still visibily misaligned.
 </p>
 <p>
-  We can improve results by suing an edge detector. Since all 3 channels
-  describe the same subject, we can ssume that the object’s edges will align. By
+  We can improve results by using an edge detector. Since all 3 channels
+  describe the same subject, we can ssume that the object's edges will align. By
   using the Sobel Edge extractor, we can extract edges and then compute Cross
   Correlation on this edge feature. This leads to much better results. Below are
   the Sobel features of the Red and Green channels for Emir
