@@ -1,0 +1,318 @@
+<h1
+  id="images-of-the-russian-empire-colorizing-the-prokudin-gorskii-photo-collection"
+>
+  Images of the Russian Empire: Colorizing the Prokudin-Gorskii photo collection
+</h1>
+<h2 id="image-processing-results">Image Processing Results</h2>
+<p>MSE: Mean Squared Error</p>
+<p>NCC: Normalized Cross Correlation</p>
+<p>SED: Sobel Edge Detection</p>
+<style>
+  table,
+  th,
+  td {
+    border: 1px solid black;
+  }
+</style>
+<table>
+  <colgroup>
+    <col style="width: 3%" />
+    <col style="width: 48%" />
+    <col style="width: 48%" />
+  </colgroup>
+  <thead>
+    <tr>
+      <th>MSE</th>
+      <th>NCC</th>
+      <th>SED</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>
+        <img src="../data/rgb_align/mse/emir.jpg" /> <br />
+        Red-Blue Shift: [50, 22] <br />
+        Green-Blue Shift: [-270, 254]
+      </td>
+      <td>
+        <img src="../data/rgb_align/cc/emir.jpg" /> <br />
+        Red-Blue Shift: [-3, 7] <br />
+        Green-Blue Shift: [107, 17]
+      </td>
+      <td>
+        <img src="../data/rgb_align/sobel/emir.jpg" /> <br />
+        Red-Blue Shift: [49, 24] <br />
+        Green-Blue Shift: [105, 41]
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <img src="../data/rgb_align/mse/church.jpg" /> <br />
+        Red-Blue Shift: [25, 3] <br />
+        Green-Blue Shift: [60, -5]
+      </td>
+      <td>
+        <img src="../data/rgb_align/cc/church.jpg" /> <br />
+        Red-Blue Shift: [0, -5] <br />
+        Green-Blue Shift: [52, -6]
+      </td>
+      <td>
+        <img src="../data/rgb_align/sobel/church.jpg" /> <br />
+        Red-Blue Shift: [25, 3] <br />
+        Green-Blue Shift: [58, -4]
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <img src="../data/rgb_align/mse/three_generations.jpg" /> <br />
+        Red-Blue Shift: [56, 12] <br />
+        Green-Blue Shift: [112, 12]
+      </td>
+      <td>
+        <img src="../data/rgb_align/cc/three_generations.jpg" /> <br />
+        Red-Blue Shift: [52, 5] <br />
+        Green-Blue Shift: [108, 7]
+      </td>
+      <td>
+        <img src="../data/rgb_align/sobel/three_generations.jpg" /> <br />
+        Red-Blue Shift: [59, 16] <br />
+        Green-Blue Shift: [115, 12]
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <img src="../data/rgb_align/mse/melons.jpg" /> <br />
+        Red-Blue Shift: [260, 270] <br />
+        Green-Blue Shift: [-138, -198]
+      </td>
+      <td>
+        <img src="../data/rgb_align/cc/melons.jpg" /> <br />
+        Red-Blue Shift: [83, 4] <br />
+        Green-Blue Shift: [177, 8]
+      </td>
+      <td>
+        <img src="../data/rgb_align/sobel/melons.jpg" /> <br />
+        Red-Blue Shift: [79, 9] <br />
+        Green-Blue Shift: [176, 14]
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <img src="../data/rgb_align/mse/onion_church.jpg" /> <br />
+        Red-Blue Shift: [51, 27] <br />
+        Green-Blue Shift: [109, 37]
+      </td>
+      <td>
+        <img src="../data/rgb_align/cc/onion_church.jpg" /> <br />
+        Red-Blue Shift: [52, 22] <br />
+        Green-Blue Shift: [108, 35]
+      </td>
+      <td>
+        <img src="../data/rgb_align/sobel/onion_church.jpg" /> <br />
+        Red-Blue Shift: [50, 28] <br />
+        Green-Blue Shift: [108, 35]
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <img src="../data/rgb_align/mse/train.jpg" /> <br />
+        Red-Blue Shift: [-6, -8] <br />
+        Green-Blue Shift: [84, 32]
+      </td>
+      <td>
+        <img src="../data/rgb_align/cc/train.jpg" /> <br />
+        Red-Blue Shift: [111, -7] <br />
+        Green-Blue Shift: [107, 1]
+      </td>
+      <td>
+        <img src="../data/rgb_align/sobel/train.jpg" /> <br />
+        Red-Blue Shift: [53, 5] <br />
+        Green-Blue Shift: [84, 28]
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <img src="../data/rgb_align/mse/icon.jpg" /> <br />
+        Red-Blue Shift: [270, 165] <br />
+        Green-Blue Shift: [268, 141]
+      </td>
+      <td>
+        <img src="../data/rgb_align/cc/icon.jpg" /> <br />
+        Red-Blue Shift: [42, 16] <br />
+        Green-Blue Shift: [89, 22]
+      </td>
+      <td>
+        <img src="../data/rgb_align/sobel/icon.jpg" /> <br />
+        Red-Blue Shift: [39, 16] <br />
+        Green-Blue Shift: [88, 23]
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <img src="../data/rgb_align/mse/self_portrait.jpg" /> <br />
+        Red-Blue Shift: [-30, 250] <br />
+        Green-Blue Shift: [-9, 172]
+      </td>
+      <td>
+        <img src="../data/rgb_align/cc/self_portrait.jpg" /> <br />
+        Red-Blue Shift: [50, -2] <br />
+        Green-Blue Shift: [130, -5]
+      </td>
+      <td>
+        <img src="../data/rgb_align/sobel/self_portrait.jpg" /> <br />
+        Red-Blue Shift: [74, 25] <br />
+        Green-Blue Shift: [175, 37]
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <img src="../data/rgb_align/mse/harvesters.jpg" /> <br />
+        Red-Blue Shift: [-270, -231] <br />
+        Green-Blue Shift: [-270, -226]
+      </td>
+      <td>
+        <img src="../data/rgb_align/cc/harvesters.jpg" /> <br />
+        Red-Blue Shift: [118, -3] <br />
+        Green-Blue Shift: [120, 7]
+      </td>
+      <td>
+        <img src="../data/rgb_align/sobel/harvesters.jpg" /> <br />
+        Red-Blue Shift: [56, 11] <br />
+        Green-Blue Shift: [118, 10]
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <img src="../data/rgb_align/mse/sculpture.jpg" /> <br />
+        Red-Blue Shift: [-270, -222] <br />
+        Green-Blue Shift: [-270, -222]
+      </td>
+      <td>
+        <img src="../data/rgb_align/cc/sculpture.jpg" /> <br />
+        Red-Blue Shift: [33, -11] <br />
+        Green-Blue Shift: [140, -26]
+      </td>
+      <td>
+        <img src="../data/rgb_align/sobel/sculpture.jpg" /> <br />
+        Red-Blue Shift: [33, -11] <br />
+        Green-Blue Shift: [140, -27]
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <img src="../data/rgb_align/mse/lady.jpg" /> <br />
+        Red-Blue Shift: [54, 8] <br />
+        Green-Blue Shift: [-138, -14]
+      </td>
+      <td>
+        <img src="../data/rgb_align/cc/lady.jpg" /> <br />
+        Red-Blue Shift: [57, -6] <br />
+        Green-Blue Shift: [123, -17]
+      </td>
+      <td>
+        <img src="../data/rgb_align/sobel/lady.jpg" /> <br />
+        Red-Blue Shift: [57, 9] <br />
+        Green-Blue Shift: [121, 13]
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <img src="../data/rgb_align/mse/monastery.jpg" /> <br />
+        Red-Blue Shift: [-3, 2] <br />
+        Green-Blue Shift: [3, 2]
+      </td>
+      <td>
+        <img src="../data/rgb_align/cc/monastery.jpg" /> <br />
+        Red-Blue Shift: [-6, 0] <br />
+        Green-Blue Shift: [9, 1]
+      </td>
+      <td>
+        <img src="../data/rgb_align/sobel/monastery.jpg" /> <br />
+        Red-Blue Shift: [-3, 2] <br />
+        Green-Blue Shift: [3, 2]
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <img src="../data/rgb_align/mse/tobolsk.jpg" /> <br />
+        Red-Blue Shift: [3, 2] <br />
+        Green-Blue Shift: [7, 3]
+      </td>
+      <td>
+        <img src="../data/rgb_align/cc/tobolsk.jpg" /> <br />
+        Red-Blue Shift: [3, 2] <br />
+        Green-Blue Shift: [6, 3]
+      </td>
+      <td>
+        <img src="../data/rgb_align/sobel/tobolsk.jpg" /> <br />
+        Red-Blue Shift: [3, 2] <br />
+        Green-Blue Shift: [6, 3]
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <img src="../data/rgb_align/mse/cathedral.jpg" /> <br />
+        Red-Blue Shift: [-50, -138] <br />
+        Green-Blue Shift: [-176, 172]
+      </td>
+      <td>
+        <img src="../data/rgb_align/cc/cathedral.jpg" /> <br />
+        Red-Blue Shift: [1, -1] <br />
+        Green-Blue Shift: [7, -1]
+      </td>
+      <td>
+        <img src="../data/rgb_align/sobel/cathedral.jpg" /> <br />
+        Red-Blue Shift: [5, 2] <br />
+        Green-Blue Shift: [12, 3]
+      </td>
+    </tr>
+  </tbody>
+</table>
+<p>
+  We observe that the MSE alignment strategy fails in Emir, Melons, and Lady.
+  This is due to the luminencne in the RGB channels not aligning, and the
+  strategy going off course because of it. Cross correlation improves this, and
+  no image is greatly color shifted like MSE. However, in Emir’s photo for
+  example, the channels are still visibily misaligned.
+</p>
+<p>
+  We can improve results by suing an edge detector. Since all 3 channels
+  describe the same subject, we can ssume that the object’s edges will align. By
+  using the Sobel Edge extractor, we can extract edges and then compute Cross
+  Correlation on this edge feature. This leads to much better results. Below are
+  the Sobel features of the Red and Green channels for Emir
+  <img
+    src="../data/../data/rgb_align/sobel1.jpg"
+    alt="Sobel Features of the Red Channel for Emir"
+  />
+  <img
+    src="../data/../data/rgb_align/sobel2.jpg"
+    alt="Sobel Features of the Red Channel for Emir"
+  />
+</p>
+<h2 id="run-time">Run Time</h2>
+<table>
+  <thead>
+    <tr>
+      <th>Method</th>
+      <th>Runtime (all 14 images)</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>MSE Minimization</td>
+      <td>04:37</td>
+    </tr>
+    <tr>
+      <td>Normalized CC</td>
+      <td>09:45</td>
+    </tr>
+    <tr>
+      <td>Sobel Edge detection</td>
+      <td>06:47</td>
+    </tr>
+  </tbody>
+</table>
+<p>
+  MSE comptues the fastest, followed by Sobel, and NCC computes the slowest.
+</p>
