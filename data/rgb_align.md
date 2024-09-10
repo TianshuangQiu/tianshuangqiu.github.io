@@ -1,13 +1,60 @@
 # Images of the Russian Empire: Colorizing the Prokudin-Gorskii photo collection
 
+## Description
+Sergei Mikhailovich Prokudin-Gorskii had an idea to create colored images
+using the tools available to him. His idea was simple: record three exposures
+of every scene onto a glass plate using a red, a green, and a blue filter.
+Never mind that there was no way to print color photographs until much later
+-- he envisioned special projectors to be installed in "multimedia" classrooms
+all across Russia where the children would be able to learn about their vast
+country. The result was a series of photos that are for the red, green, and
+blue channels. The goal of this project is to align the channels and create a
+colored image.
+
+This project experiments with 3 different alignment strategies: Euclidean
+Distance (Mean Square Difference), Normalized Cross Correlation, and Sobel Edge
+Detection.
+
+<!-- ## Method
+Let the two channels be $c_1, c_2$. Let the shift functions be $\text{shift}_x(k, c)$, $\text{shift}_y (k, c)$, which shifts an image $c$ in the $x$ and $y$ directions by $k$ pixels.
+
+### Euclidean Distance (Mean Squared Difference)
+For this method we compute the Euclidean Distance bewtween the channels. We seek to minimize this distance due to our assumption that bright areas should be bright across all channels. Thus let the shifted channel 1 be $c_1'$, then
+$$c_1' = \text{shift}_y(y, \text{shift}_x(x, c_1)) $$
+We then find
+$$(x, y) = \text{argmin}_{x, y} \sqrt{(c_1 - c_2)^2}$$
+where $x, y \in [-15, 15]$
+
+### Normalized Cross Correlation (NCC)
+For this method we compute the Cross Correlation. We seek to maximize this since we believe that areas in which the image is bright __relative__ to the rest of the image should be __relatively__ bright in all channels. This improves upon MSD since it there may be images that are brighter for an entire channel, which throws off the metric. Let the normalized channels be $c_1', c_2'$ 
+$$c_i = \frac{c_i}{||c_i||} - 0.5 \times \vec{1}$$
+This normalizes the mean and variance of the vectors.
+let the shifted channel 1 be $c_1''$, then
+$$c_1' = \text{shift}_y(y, \text{shift}_x(x, c_1')) $$
+
+We then find
+$$(x, y) = \text{argmax}_{x, y} c_1'' \cdot c_2'$$
+where $x, y \in [-15, 15]$
+
+### Sobel Edge Detection (NCC)
+For this method we still compute the Cross Correlation and seek to maximize this. However, the features are no longer the pixel values, but the edge features created by the Sobel Edge Extractor. Let the extracted features channels be $c_1', c_2'$ 
+$$c_i = \text{Sobel}(c_1)$$
+Since Sobel already normalizes, we do not need to normalize again.
+Let the shifted channel 1 be $c_1''$, then
+$$c_1' = \text{shift}_y(y, \text{shift}_x(x, c_1')) $$
+
+We then find
+$$(x, y) = \text{argmax}_{x, y} c_1'' \cdot c_2'$$
+where $x, y \in [-15, 15]$ -->
+
 ## Image Processing Results
-MSE: Mean Squared Error
+MSD: Mean Squared Difference
 
 NCC: Normalized Cross Correlation
 
 SED: Sobel Edge Detection
 
-| MSE| NCC  | SED |
+| MSD| NCC  | SED |
 | - | ------------- | ------------- |
 | ![](../data/rgb_align/mse/emir.jpg) <br> Red-Blue Shift: [50, 22] <br> Green-Blue Shift: [-270, 254] | ![](../data/rgb_align/cc/emir.jpg) <br> Red-Blue Shift: [-3, 7] <br> Green-Blue Shift: [107, 17] | ![](../data/rgb_align/sobel/emir.jpg) <br> Red-Blue Shift: [49, 24] <br> Green-Blue Shift: [105, 41] |
 | ![](../data/rgb_align/mse/church.jpg) <br> Red-Blue Shift: [25, 3] <br> Green-Blue Shift: [60, -5] | ![](../data/rgb_align/cc/church.jpg) <br> Red-Blue Shift: [0, -5] <br> Green-Blue Shift: [52, -6] | ![](../data/rgb_align/sobel/church.jpg) <br> Red-Blue Shift: [25, 3] <br> Green-Blue Shift: [58, -4] |
@@ -24,18 +71,33 @@ SED: Sobel Edge Detection
 | ![](../data/rgb_align/mse/tobolsk.jpg) <br> Red-Blue Shift: [3, 2] <br> Green-Blue Shift: [7, 3] | ![](../data/rgb_align/cc/tobolsk.jpg) <br> Red-Blue Shift: [3, 2] <br> Green-Blue Shift: [6, 3] | ![](../data/rgb_align/sobel/tobolsk.jpg) <br> Red-Blue Shift: [3, 2] <br> Green-Blue Shift: [6, 3] |
 | ![](../data/rgb_align/mse/cathedral.jpg) <br> Red-Blue Shift: [-50, -138] <br> Green-Blue Shift: [-176, 172] | ![](../data/rgb_align/cc/cathedral.jpg) <br> Red-Blue Shift: [1, -1] <br> Green-Blue Shift: [7, -1] | ![](../data/rgb_align/sobel/cathedral.jpg) <br> Red-Blue Shift: [5, 2] <br> Green-Blue Shift: [12, 3] |
 
-We observe that the MSE alignment strategy fails in Emir, Melons, and Lady. This is due to the luminencne in the RGB channels not aligning, and the strategy going off course because of it. Cross correlation improves this, and no image is greatly color shifted like MSE. However, in Emir's photo for example, the channels are still visibily misaligned. 
+We observe that the MSD alignment strategy fails in Emir, Melons, and Lady. This is due to the luminencne in the RGB channels not aligning, and the strategy going off course because of it. We also try multiscale alignment even for smaller JPG's. This leads to compounding errors for smaller images for the MSD strategy. Cross correlation improves this, and no image is greatly color shifted like MSD. However, in Emir's photo for example, the channels are still visibily misaligned. This is most likely due to the differently thick edges lining up, messing up the alignment of the image subject. We improved results by suing an edge detector. Since all 3 channels describe the same subject, we can ssume that the object's edges will align. By using the Sobel Edge extractor, we can extract edges and then compute Cross Correlation on this edge feature. This leads to much better results as shown in the above table.
 
-We can improve results by suing an edge detector. Since all 3 channels describe the same subject, we can ssume that the object's edges will align. By using the Sobel Edge extractor, we can extract edges and then compute Cross Correlation on this edge feature. This leads to much better results.
-Below are the Sobel features of the Red and Green channels for Emir
+## Edge Detector
+Below are the Sobel features of the Red, Green, and Blue channels for Emir
 ![Sobel Features of the Red Channel for Emir](../data/../data/rgb_align/sobel1.jpg)
-![Sobel Features of the Red Channel for Emir](../data/../data/rgb_align/sobel2.jpg)
+![Sobel Features of the Green Channel for Emir](../data/../data/rgb_align/sobel2.jpg)
+![Sobel Features of the Blue Channel for Emir](../data/../data/rgb_align/sobel2.jpg)
+
+## Automatic Contrast
+For automatic contrast, we normalize the histogram to both linear and sigmoid distributions. 
+To achieve this, we first compute the percentile of a pixel in its channel relative to the rest of the image. Then we replace its value by the the value of our function at the point of that percentile.
+If a pixel is at the 50 percentile, then if we use the linear case, then its value should be $0.5 \times 255 = 128$ (rounded to the nearest integer). The linear function uses a linear function to create the histogram function, and the sigmoid one uses a sigmod function.
+
+Below we test our method on 3 images downloaded from the Prokudin-Gorskii collection.
+
+| Original |  Uncorrected  | Linear Contrast | Sigmoid Contrast |
+| ------------- | ------------- | ------------- | -------------|
+| ![](../data/rgb_align/custom_0.jpg) | ![](../data/rgb_align/custom0_stack.jpg) | ![](../data/rgb_align/custom0_lin.jpg) | ![](../data/rgb_align/custom0_sigmoid.jpg)|
+| ![](../data/rgb_align/custom_1.jpg) | ![](../data/rgb_align/custom1_stack.jpg) | ![](../data/rgb_align/custom1_lin.jpg) | ![](../data/rgb_align/custom1_sigmoid.jpg)|
+| ![](../data/rgb_align/custom_2.jpg) | ![](../data/rgb_align/custom2_stack.jpg) | ![](../data/rgb_align/custom2_lin.jpg) | ![](../data/rgb_align/custom2_sigmoid.jpg)|
+
 
 ## Run Time
 | Method     | Runtime (all 14 images)|
 | ------------- | ------------- |
-| MSE Minimization | 04:37 | 
+| MSD Minimization | 04:37 | 
 | Normalized CC | 09:45 | 
 | Sobel Edge detection| 06:47 | 
 
-MSE comptues the fastest, followed by Sobel, and NCC computes the slowest.
+MSD comptues the fastest, followed by Sobel, and NCC computes the slowest.

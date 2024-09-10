@@ -3,10 +3,7 @@
 >
   Images of the Russian Empire: Colorizing the Prokudin-Gorskii photo collection
 </h1>
-<h2 id="image-processing-results">Image Processing Results</h2>
-<p>MSE: Mean Squared Error</p>
-<p>NCC: Normalized Cross Correlation</p>
-<p>SED: Sobel Edge Detection</p>
+<link rel="stylesheet" type="text/css" href="../stylesheet.css" />
 <style>
   table,
   th,
@@ -14,6 +11,289 @@
     border: 1px solid black;
   }
 </style>
+<h2 id="description">Description</h2>
+<p>
+  Sergei Mikhailovich Prokudin-Gorskii had an idea to create colored images
+  using the tools available to him. His idea was simple: record three exposures
+  of every scene onto a glass plate using a red, a green, and a blue filter.
+  Never mind that there was no way to print color photographs until much later –
+  he envisioned special projectors to be installed in “multimedia” classrooms
+  all across Russia where the children would be able to learn about their vast
+  country. The result was a series of photos that are for the red, green, and
+  blue channels. The goal of this project is to align the channels and create a
+  colored image.
+</p>
+<p>
+  This project experiments with 3 different alignment strategies: Euclidean
+  Distance (Mean Square Difference), Normalized Cross Correlation, and Sobel
+  Edge Detection.
+</p>
+<h2>Method</h2>
+<p>
+  Let the two channels be
+  <math xmlns="http://www.w3.org/1998/Math/MathML" display="inline"
+    ><mrow
+      ><msub><mi>c</mi><mn>1</mn></msub
+      ><mo>&#x0002C;</mo><msub><mi>c</mi><mn>2</mn></msub></mrow
+    ></math
+  >. Let the shift functions be
+  <math xmlns="http://www.w3.org/1998/Math/MathML" display="inline"
+    ><mrow
+      ><msub><mtext>shift</mtext><mi>x</mi></msub
+      ><mo stretchy="false">&#x00028;</mo><mi>k</mi><mo>&#x0002C;</mo><mi>c</mi
+      ><mo stretchy="false">&#x00029;</mo></mrow
+    ></math
+  >,
+  <math xmlns="http://www.w3.org/1998/Math/MathML" display="inline"
+    ><mrow
+      ><msub><mtext>shift</mtext><mi>y</mi></msub
+      ><mo stretchy="false">&#x00028;</mo><mi>k</mi><mo>&#x0002C;</mo><mi>c</mi
+      ><mo stretchy="false">&#x00029;</mo></mrow
+    ></math
+  >, which shifts an image
+  <math xmlns="http://www.w3.org/1998/Math/MathML" display="inline"
+    ><mrow><mi>c</mi></mrow></math
+  >
+  in the
+  <math xmlns="http://www.w3.org/1998/Math/MathML" display="inline"
+    ><mrow><mi>x</mi></mrow></math
+  >
+  and
+  <math xmlns="http://www.w3.org/1998/Math/MathML" display="inline"
+    ><mrow><mi>y</mi></mrow></math
+  >
+  directions by
+  <math xmlns="http://www.w3.org/1998/Math/MathML" display="inline"
+    ><mrow><mi>k</mi></mrow></math
+  >
+  pixels.
+</p>
+<h3>Euclidean Distance (Mean Squared Difference)</h3>
+<p>
+  For this method we compute the Euclidean Distance bewtween the channels. We
+  seek to minimize this distance due to our assumption that bright areas should
+  be bright across all channels. Thus let the shifted channel 1 be
+  <math xmlns="http://www.w3.org/1998/Math/MathML" display="inline"
+    ><mrow
+      ><msubsup><mi>c</mi><mn>1</mn><mi>&#x02032;</mi></msubsup></mrow
+    ></math
+  >, then
+</p>
+<div class="blockformula">
+  <math xmlns="http://www.w3.org/1998/Math/MathML" display="inline"
+    ><mrow
+      ><msubsup><mi>c</mi><mn>1</mn><mi>&#x02032;</mi></msubsup
+      ><mo>&#x0003D;</mo><msub><mtext>shift</mtext><mi>y</mi></msub
+      ><mo stretchy="false">&#x00028;</mo><mi>y</mi><mo>&#x0002C;</mo
+      ><msub><mtext>shift</mtext><mi>x</mi></msub
+      ><mo stretchy="false">&#x00028;</mo><mi>x</mi><mo>&#x0002C;</mo
+      ><msub><mi>c</mi><mn>1</mn></msub
+      ><mo stretchy="false">&#x00029;</mo
+      ><mo stretchy="false">&#x00029;</mo></mrow
+    ></math
+  >
+</div>
+<p>We then find</p>
+<div class="blockformula">
+  <math xmlns="http://www.w3.org/1998/Math/MathML" display="inline"
+    ><mrow
+      ><mo stretchy="false">&#x00028;</mo><mi>x</mi><mo>&#x0002C;</mo><mi>y</mi
+      ><mo stretchy="false">&#x00029;</mo><mo>&#x0003D;</mo
+      ><msub
+        ><mtext>argmin</mtext
+        ><mrow><mi>x</mi><mo>&#x0002C;</mo><mi>y</mi></mrow></msub
+      ><msqrt
+        ><mrow
+          ><mo stretchy="false">&#x00028;</mo><msub><mi>c</mi><mn>1</mn></msub
+          ><mo>&#x02212;</mo><msub><mi>c</mi><mn>2</mn></msub
+          ><msup><mo stretchy="false">&#x00029;</mo><mn>2</mn></msup></mrow
+        ></msqrt
+      ></mrow
+    ></math
+  >
+</div>
+<p>
+  where
+  <math xmlns="http://www.w3.org/1998/Math/MathML" display="inline"
+    ><mrow
+      ><mi>x</mi><mo>&#x0002C;</mo><mi>y</mi><mo>&#x02208;</mo
+      ><mo stretchy="false">[</mo><mo>&#x02212;</mo><mn>15</mn><mo>&#x0002C;</mo
+      ><mn>15</mn><mo stretchy="false">]</mo></mrow
+    ></math
+  >
+</p>
+<h3>Normalized Cross Correlation (NCC)</h3>
+<p>
+  For this method we compute the Cross Correlation. We seek to maximize this
+  since we believe that areas in which the image is bright
+  <strong>relative</strong> to the rest of the image should be
+  <strong>relatively</strong> bright in all channels. This improves upon MSD
+  since it there may be images that are brighter for an entire channel, which
+  throws off the metric. Let the normalized channels be
+  <math xmlns="http://www.w3.org/1998/Math/MathML" display="inline"
+    ><mrow
+      ><msubsup><mi>c</mi><mn>1</mn><mi>&#x02032;</mi></msubsup
+      ><mo>&#x0002C;</mo
+      ><msubsup><mi>c</mi><mn>2</mn><mi>&#x02032;</mi></msubsup></mrow
+    ></math
+  >
+</p>
+<div class="blockformula">
+  <math xmlns="http://www.w3.org/1998/Math/MathML" display="inline"
+    ><mrow
+      ><msub><mi>c</mi><mi>i</mi></msub
+      ><mo>&#x0003D;</mo
+      ><mfrac
+        ><mrow
+          ><msub><mi>c</mi><mi>i</mi></msub></mrow
+        ><mrow
+          ><mo stretchy="false">&#x0007C;</mo><mo stretchy="false">&#x0007C;</mo
+          ><msub><mi>c</mi><mi>i</mi></msub
+          ><mo stretchy="false">&#x0007C;</mo
+          ><mo stretchy="false">&#x0007C;</mo></mrow
+        ></mfrac
+      ><mo>&#x02212;</mo><mn>0.5</mn><mi>&#x000D7;</mi
+      ><mover
+        ><mrow><mn>1</mn></mrow
+        ><mo stretchy="true">&#x02192;</mo></mover
+      ></mrow
+    ></math
+  >
+</div>
+<p>
+  This normalizes the mean and variance of the vectors. let the shifted channel
+  1 be
+  <math xmlns="http://www.w3.org/1998/Math/MathML" display="inline"
+    ><mrow
+      ><msup
+        ><msubsup><mi>c</mi><mn>1</mn><mi>&#x02032;</mi></msubsup
+        ><mi>&#x02032;</mi></msup
+      ></mrow
+    ></math
+  >, then
+</p>
+<div class="blockformula">
+  <math xmlns="http://www.w3.org/1998/Math/MathML" display="inline"
+    ><mrow
+      ><msubsup><mi>c</mi><mn>1</mn><mi>&#x02032;</mi></msubsup
+      ><mo>&#x0003D;</mo><msub><mtext>shift</mtext><mi>y</mi></msub
+      ><mo stretchy="false">&#x00028;</mo><mi>y</mi><mo>&#x0002C;</mo
+      ><msub><mtext>shift</mtext><mi>x</mi></msub
+      ><mo stretchy="false">&#x00028;</mo><mi>x</mi><mo>&#x0002C;</mo
+      ><msubsup><mi>c</mi><mn>1</mn><mi>&#x02032;</mi></msubsup
+      ><mo stretchy="false">&#x00029;</mo
+      ><mo stretchy="false">&#x00029;</mo></mrow
+    ></math
+  >
+</div>
+<p>We then find</p>
+<div class="blockformula">
+  <math xmlns="http://www.w3.org/1998/Math/MathML" display="inline"
+    ><mrow
+      ><mo stretchy="false">&#x00028;</mo><mi>x</mi><mo>&#x0002C;</mo><mi>y</mi
+      ><mo stretchy="false">&#x00029;</mo><mo>&#x0003D;</mo
+      ><msub
+        ><mtext>argmax</mtext
+        ><mrow><mi>x</mi><mo>&#x0002C;</mo><mi>y</mi></mrow></msub
+      ><msup
+        ><msubsup><mi>c</mi><mn>1</mn><mi>&#x02032;</mi></msubsup
+        ><mi>&#x02032;</mi></msup
+      ><mi>&#x000B7;</mi
+      ><msubsup><mi>c</mi><mn>2</mn><mi>&#x02032;</mi></msubsup></mrow
+    ></math
+  >
+</div>
+<p>
+  where
+  <math xmlns="http://www.w3.org/1998/Math/MathML" display="inline"
+    ><mrow
+      ><mi>x</mi><mo>&#x0002C;</mo><mi>y</mi><mo>&#x02208;</mo
+      ><mo stretchy="false">[</mo><mo>&#x02212;</mo><mn>15</mn><mo>&#x0002C;</mo
+      ><mn>15</mn><mo stretchy="false">]</mo></mrow
+    ></math
+  >
+</p>
+<h3>Sobel Edge Detection (NCC)</h3>
+<p>
+  For this method we still compute the Cross Correlation and seek to maximize
+  this. However, the features are no longer the pixel values, but the edge
+  features created by the Sobel Edge Extractor. Let the extracted features
+  channels be
+  <math xmlns="http://www.w3.org/1998/Math/MathML" display="inline"
+    ><mrow
+      ><msubsup><mi>c</mi><mn>1</mn><mi>&#x02032;</mi></msubsup
+      ><mo>&#x0002C;</mo
+      ><msubsup><mi>c</mi><mn>2</mn><mi>&#x02032;</mi></msubsup></mrow
+    ></math
+  >
+</p>
+<div class="blockformula">
+  <math xmlns="http://www.w3.org/1998/Math/MathML" display="inline"
+    ><mrow
+      ><msub><mi>c</mi><mi>i</mi></msub
+      ><mo>&#x0003D;</mo><mtext>Sobel</mtext><mo stretchy="false">&#x00028;</mo
+      ><msub><mi>c</mi><mn>1</mn></msub
+      ><mo stretchy="false">&#x00029;</mo></mrow
+    ></math
+  >
+</div>
+<p>
+  Since Sobel already normalizes, we do not need to normalize again. Let the
+  shifted channel 1 be
+  <math xmlns="http://www.w3.org/1998/Math/MathML" display="inline"
+    ><mrow
+      ><msup
+        ><msubsup><mi>c</mi><mn>1</mn><mi>&#x02032;</mi></msubsup
+        ><mi>&#x02032;</mi></msup
+      ></mrow
+    ></math
+  >, then
+</p>
+<div class="blockformula">
+  <math xmlns="http://www.w3.org/1998/Math/MathML" display="inline"
+    ><mrow
+      ><msubsup><mi>c</mi><mn>1</mn><mi>&#x02032;</mi></msubsup
+      ><mo>&#x0003D;</mo><msub><mtext>shift</mtext><mi>y</mi></msub
+      ><mo stretchy="false">&#x00028;</mo><mi>y</mi><mo>&#x0002C;</mo
+      ><msub><mtext>shift</mtext><mi>x</mi></msub
+      ><mo stretchy="false">&#x00028;</mo><mi>x</mi><mo>&#x0002C;</mo
+      ><msubsup><mi>c</mi><mn>1</mn><mi>&#x02032;</mi></msubsup
+      ><mo stretchy="false">&#x00029;</mo
+      ><mo stretchy="false">&#x00029;</mo></mrow
+    ></math
+  >
+</div>
+<p>We then find</p>
+<div class="blockformula">
+  <math xmlns="http://www.w3.org/1998/Math/MathML" display="inline"
+    ><mrow
+      ><mo stretchy="false">&#x00028;</mo><mi>x</mi><mo>&#x0002C;</mo><mi>y</mi
+      ><mo stretchy="false">&#x00029;</mo><mo>&#x0003D;</mo
+      ><msub
+        ><mtext>argmax</mtext
+        ><mrow><mi>x</mi><mo>&#x0002C;</mo><mi>y</mi></mrow></msub
+      ><msup
+        ><msubsup><mi>c</mi><mn>1</mn><mi>&#x02032;</mi></msubsup
+        ><mi>&#x02032;</mi></msup
+      ><mi>&#x000B7;</mi
+      ><msubsup><mi>c</mi><mn>2</mn><mi>&#x02032;</mi></msubsup></mrow
+    ></math
+  >
+</div>
+<p>
+  where
+  <math xmlns="http://www.w3.org/1998/Math/MathML" display="inline"
+    ><mrow
+      ><mi>x</mi><mo>&#x0002C;</mo><mi>y</mi><mo>&#x02208;</mo
+      ><mo stretchy="false">[</mo><mo>&#x02212;</mo><mn>15</mn><mo>&#x0002C;</mo
+      ><mn>15</mn><mo stretchy="false">]</mo></mrow
+    ></math
+  >
+</p>
+<h2 id="image-processing-results">Image Processing Results</h2>
+<p>MSD: Mean Squared Difference</p>
+<p>NCC: Normalized Cross Correlation</p>
+<p>SED: Sobel Edge Detection</p>
 <table>
   <colgroup>
     <col style="width: 3%" />
@@ -22,7 +302,7 @@
   </colgroup>
   <thead>
     <tr>
-      <th>MSE</th>
+      <th>MSD</th>
       <th>NCC</th>
       <th>SED</th>
     </tr>
@@ -269,27 +549,87 @@
   </tbody>
 </table>
 <p>
-  We observe that the MSE alignment strategy fails in Emir, Melons, and Lady.
+  We observe that the MSD alignment strategy fails in Emir, Melons, and Lady.
   This is due to the luminencne in the RGB channels not aligning, and the
-  strategy going off course because of it. Cross correlation improves this, and
-  no image is greatly color shifted like MSE. However, in Emir's photo for
-  example, the channels are still visibily misaligned.
+  strategy going off course because of it. We also try multiscale alignment even
+  for smaller JPG’s. This leads to compounding errors for smaller images for the
+  MSD strategy. Cross correlation improves this, and no image is greatly color
+  shifted like MSD. However, in Emir’s photo for example, the channels are still
+  visibily misaligned. This is most likely due to the differently thick edges
+  lining up, messing up the alignment of the image subject. We improved results
+  by suing an edge detector. Since all 3 channels describe the same subject, we
+  can ssume that the object’s edges will align. By using the Sobel Edge
+  extractor, we can extract edges and then compute Cross Correlation on this
+  edge feature. This leads to much better results as shown in the above table.
 </p>
+<h2 id="edge-detector">Edge Detector</h2>
 <p>
-  We can improve results by using an edge detector. Since all 3 channels
-  describe the same subject, we can assume that the object's edges will align.
-  By using the Sobel Edge extractor, we can extract edges and then compute Cross
-  Correlation on this edge feature. This leads to much better results. Below are
-  the Sobel features of the Red and Green channels for Emir.
+  Below are the Sobel features of the Red, Green, and Blue channels for Emir
+  <br />
   <img
     src="../data/../data/rgb_align/sobel1.jpg"
     alt="Sobel Features of the Red Channel for Emir"
   />
   <img
     src="../data/../data/rgb_align/sobel2.jpg"
-    alt="Sobel Features of the Red Channel for Emir"
+    alt="Sobel Features of the Green Channel for Emir"
+  />
+  <img
+    src="../data/../data/rgb_align/sobel2.jpg"
+    alt="Sobel Features of the Blue Channel for Emir"
   />
 </p>
+<h2 id="automatic-contrast">Automatic Contrast</h2>
+<p>
+  For automatic contrast, we normalize the histogram to both linear and sigmoid
+  distributions. To achieve this, we first compute the percentile of a pixel in
+  its channel relative to the rest of the image. Then we replace its value by
+  the the value of our function at the point of that percentile. If a pixel is
+  at the 50 percentile, then if we use the linear case, then its value should be
+  <span class="math inline">0.5 × 255 = 128</span> (rounded to the nearest
+  integer). The linear function uses a linear function to create the histogram
+  function, and the sigmoid one uses a sigmod function.
+</p>
+<p>
+  Below we test our method on 3 images downloaded from the Prokudin-Gorskii
+  collection.
+</p>
+<table>
+  <colgroup>
+    <col style="width: 25%" />
+    <col style="width: 25%" />
+    <col style="width: 25%" />
+    <col style="width: 25%" />
+  </colgroup>
+  <thead>
+    <tr>
+      <th>Original</th>
+      <th>Uncorrected</th>
+      <th>Linear Contrast</th>
+      <th>Sigmoid Contrast</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><img src="../data/rgb_align/custom_0.jpg" /></td>
+      <td><img src="../data/rgb_align/custom0_stack.jpg" /></td>
+      <td><img src="../data/rgb_align/custom0_lin.jpg" /></td>
+      <td><img src="../data/rgb_align/custom0_sigmoid.jpg" /></td>
+    </tr>
+    <tr>
+      <td><img src="../data/rgb_align/custom_1.jpg" /></td>
+      <td><img src="../data/rgb_align/custom1_stack.jpg" /></td>
+      <td><img src="../data/rgb_align/custom1_lin.jpg" /></td>
+      <td><img src="../data/rgb_align/custom1_sigmoid.jpg" /></td>
+    </tr>
+    <tr>
+      <td><img src="../data/rgb_align/custom_2.jpg" /></td>
+      <td><img src="../data/rgb_align/custom2_stack.jpg" /></td>
+      <td><img src="../data/rgb_align/custom2_lin.jpg" /></td>
+      <td><img src="../data/rgb_align/custom2_sigmoid.jpg" /></td>
+    </tr>
+  </tbody>
+</table>
 <h2 id="run-time">Run Time</h2>
 <table>
   <thead>
@@ -300,7 +640,7 @@
   </thead>
   <tbody>
     <tr>
-      <td>MSE Minimization</td>
+      <td>MSD Minimization</td>
       <td>04:37</td>
     </tr>
     <tr>
@@ -314,5 +654,5 @@
   </tbody>
 </table>
 <p>
-  MSE comptues the fastest, followed by Sobel, and NCC computes the slowest.
+  MSD comptues the fastest, followed by Sobel, and NCC computes the slowest.
 </p>
