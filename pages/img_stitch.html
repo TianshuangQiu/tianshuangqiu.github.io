@@ -4,7 +4,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-    <title>Automatic Image Stitching</title>
+    <title>submission</title>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.1.10/require.min.js"></script>
 
     <style type="text/css">
@@ -19511,9 +19511,16 @@ all of MD as it is not optimized for dense, information rich UIs.
             class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput"
             data-mime-type="text/markdown"
           >
-            <h1 id="Merging">
-              Merging<a class="anchor-link" href="#Merging">&#182;</a>
+            <h1 id="5.-Merging">
+              5. Merging<a class="anchor-link" href="#5.-Merging">&#182;</a>
             </h1>
+            <h2 id="5.1-Naive-Blending">
+              5.1 Naive Blending<a
+                class="anchor-link"
+                href="#5.1-Naive-Blending"
+                >&#182;</a
+              >
+            </h2>
             <p>
               In this section, we blend all of the previous pieces together into
               a single image. We first attempt a naive implementation by simply
@@ -19539,6 +19546,13 @@ all of MD as it is not optimized for dense, information rich UIs.
             class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput"
             data-mime-type="text/markdown"
           >
+            <h2 id="5.2-Alpha-Blending">
+              5.2 Alpha Blending<a
+                class="anchor-link"
+                href="#5.2-Alpha-Blending"
+                >&#182;</a
+              >
+            </h2>
             <p>
               We observe that this creates a lot of artifacts. For example, the
               pedestrain sign is misaligned for the first image and the chair's
@@ -19569,6 +19583,13 @@ all of MD as it is not optimized for dense, information rich UIs.
             class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput"
             data-mime-type="text/markdown"
           >
+            <h2 id="5.3-Laplacian-Blending">
+              5.3 Laplacian Blending<a
+                class="anchor-link"
+                href="#5.3-Laplacian-Blending"
+                >&#182;</a
+              >
+            </h2>
             <p>
               To address the ghosting issue, we use lapachian blending. By
               blurring the image's edges, we seek to relieve both the edge issue
@@ -19605,6 +19626,275 @@ all of MD as it is not optimized for dense, information rich UIs.
               the camera quite a bit to capture a larger scene.
             </p>
           </div>
+        </div>
+      </div>
+    </div>
+    <div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
+      <div class="jp-Cell-inputWrapper">
+        <div
+          class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser"
+        ></div>
+        <div class="jp-InputArea jp-Cell-inputArea">
+          <div class="jp-InputPrompt jp-InputArea-prompt"></div>
+          <div
+            class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput"
+            data-mime-type="text/markdown"
+          >
+            <h1 id="Project-4B:-Automatic-Stitching">
+              Project 4B: Automatic Stitching<a
+                class="anchor-link"
+                href="#Project-4B:-Automatic-Stitching"
+                >&#182;</a
+              >
+            </h1>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
+      <div class="jp-Cell-inputWrapper">
+        <div
+          class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser"
+        ></div>
+        <div class="jp-InputArea jp-Cell-inputArea">
+          <div class="jp-InputPrompt jp-InputArea-prompt"></div>
+          <div
+            class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput"
+            data-mime-type="text/markdown"
+          >
+            <h2 id="1.-Feature-extraction">
+              1. Feature extraction<a
+                class="anchor-link"
+                href="#1.-Feature-extraction"
+                >&#182;</a
+              >
+            </h2>
+            <p>
+              To enable automatic stitching, we first extract features from each
+              of our images. To do this we use the Harris Corner detector. This
+              detects corners by measuring the gradient in the x and y
+              directions.
+            </p>
+            <p>
+              <img src="../data/img_stitch/brick_all_harris.jpg" alt="" />
+              <img src="../data/img_stitch/build_all_harris.jpg" alt="" />
+              <img src="../data/img_stitch/chair_all_harris.jpg" alt="" />
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
+      <div class="jp-Cell-inputWrapper">
+        <div
+          class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser"
+        ></div>
+        <div class="jp-InputArea jp-Cell-inputArea">
+          <div class="jp-InputPrompt jp-InputArea-prompt"></div>
+          <div
+            class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput"
+            data-mime-type="text/markdown"
+          >
+            <h2 id="2.-Adaptive-Non-Maximal-Suppression">
+              2. Adaptive Non-Maximal Suppression<a
+                class="anchor-link"
+                href="#2.-Adaptive-Non-Maximal-Suppression"
+                >&#182;</a
+              >
+            </h2>
+            <p>
+              There are too many points in this example, so we need to
+              downsample. We use the ANMS technique, and reduce the number of
+              points to a fixed amount. Below we compare the results of sampling
+              200 points with a radius of 40 and sampling 500 points with a
+              radius of 20.
+            </p>
+            <p>
+              <img
+                src="../data/img_stitch/brick_suppressed_harris.jpg"
+                alt=""
+              />
+              <img
+                src="../data/img_stitch/build_suppressed_harris.jpg"
+                alt=""
+              />
+              <img
+                src="../data/img_stitch/chair_suppressed_harris.jpg"
+                alt=""
+              />
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
+      <div class="jp-Cell-inputWrapper">
+        <div
+          class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser"
+        ></div>
+        <div class="jp-InputArea jp-Cell-inputArea">
+          <div class="jp-InputPrompt jp-InputArea-prompt"></div>
+          <div
+            class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput"
+            data-mime-type="text/markdown"
+          >
+            <h2 id="3.-Patch-Extraction">
+              3. Patch Extraction<a
+                class="anchor-link"
+                href="#3.-Patch-Extraction"
+                >&#182;</a
+              >
+            </h2>
+            <p>
+              We compute the MOPS patches, which are 40x40 patches extracted
+              with the center at the filtered Harris Points above. We then
+              downsample these patches to 8x8 descriptors. Below we visualize a
+              few patches from the <em>chair</em> scene.
+            </p>
+            <p>
+              <img src="../data/img_stitch/mops_patches_chair.jpg" alt="" />
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
+      <div class="jp-Cell-inputWrapper">
+        <div
+          class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser"
+        ></div>
+        <div class="jp-InputArea jp-Cell-inputArea">
+          <div class="jp-InputPrompt jp-InputArea-prompt"></div>
+          <div
+            class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput"
+            data-mime-type="text/markdown"
+          >
+            <h2 id="4.-Patch-Matching">
+              4. Patch Matching<a class="anchor-link" href="#4.-Patch-Matching"
+                >&#182;</a
+              >
+            </h2>
+            <p>
+              To match these patches to each other, we use
+              <strong>Lowe's</strong> trick. We apply a threshold (0.85) between
+              the difference with the nearest neighbor and the difference with
+              the second nearest neighbor. The motivation is that if a patch
+              exists in both frames, then it should have 1 unique nearest
+              neighbor. We visualize the matches below.
+            </p>
+            <p>
+              <img src="../data/img_stitch/mops_matches_brick.jpg" alt="" />
+              <img src="../data/img_stitch/mops_matches_build.jpg" alt="" />
+              <img src="../data/img_stitch/mops_matches_chair.jpg" alt="" />
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
+      <div class="jp-Cell-inputWrapper">
+        <div
+          class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser"
+        ></div>
+        <div class="jp-InputArea jp-Cell-inputArea">
+          <div class="jp-InputPrompt jp-InputArea-prompt"></div>
+          <div
+            class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput"
+            data-mime-type="text/markdown"
+          >
+            <h2 id="6.-RANSAC-Culling">
+              6. RANSAC Culling<a class="anchor-link" href="#6.-RANSAC-Culling"
+                >&#182;</a
+              >
+            </h2>
+            <p>
+              We notice that although most of the correspondences are correct, a
+              lot of them are not. We then seek to reject outliers using RANSAC.
+              We implement it by warping the Harris points with the proposed
+              transformation $h$. We use 1000 iterations and a threshold of 1.
+              Below we visualize the RANSAC matches. We can see that all the
+              correspondences agree with each other.
+            </p>
+            <p>
+              <img src="../data/img_stitch/ransac_brick.jpg" alt="" />
+              <img src="../data/img_stitch/ransac_build.jpg" alt="" />
+              <img src="../data/img_stitch/ransac_chair.jpg" alt="" />
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
+      <div class="jp-Cell-inputWrapper">
+        <div
+          class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser"
+        ></div>
+        <div class="jp-InputArea jp-Cell-inputArea">
+          <div class="jp-InputPrompt jp-InputArea-prompt"></div>
+          <div
+            class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput"
+            data-mime-type="text/markdown"
+          >
+            <h2 id="7.-Results">
+              7. Results<a class="anchor-link" href="#7.-Results">&#182;</a>
+            </h2>
+            <p>
+              Finally, we visualize the results of the hand labelled images and
+              the automatically stitched ones. All blending techniques are the
+              same.
+            </p>
+            <h3 id="7.1-Brick">
+              7.1 Brick<a class="anchor-link" href="#7.1-Brick">&#182;</a>
+            </h3>
+            <p>Below is the <strong>manually</strong> labelled brick scene.</p>
+            <p><img src="../data/img_stitch/brick_laplacian.jpg" alt="" /></p>
+            <p>
+              Below is the <strong>automatically</strong> stitched brick scene.
+            </p>
+            <p>
+              <img src="../data/img_stitch/brick_auto_blended.jpg" alt="" />
+            </p>
+            <h3 id="7.2-Building">
+              7.2 Building<a class="anchor-link" href="#7.2-Building">&#182;</a>
+            </h3>
+            <p>
+              Below is the <strong>manually</strong> labelled building scene.
+            </p>
+            <p><img src="../data/img_stitch/build_laplacian.jpg" alt="" /></p>
+            <p>
+              Below is the <strong>automatically</strong> stitched building
+              scene. Notice the smoother roof on the right side.
+            </p>
+            <p>
+              <img src="../data/img_stitch/build_auto_blended.jpg" alt="" />
+            </p>
+            <h3 id="7.3-Chair">
+              7.3 Chair<a class="anchor-link" href="#7.3-Chair">&#182;</a>
+            </h3>
+            <p>Below is the <strong>manually</strong> labelled chair scene.</p>
+            <p><img src="../data/img_stitch/chair_laplacian.jpg" alt="" /></p>
+            <p>
+              Below is the <strong>automatically</strong> stitched chair scene.
+              Notice the smoother edge of the chairs on the right side.
+            </p>
+            <p>
+              <img src="../data/img_stitch/chair_auto_blended.jpg" alt="" />
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
+      <div class="jp-Cell-inputWrapper">
+        <div
+          class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser"
+        ></div>
+        <div class="jp-InputArea jp-Cell-inputArea">
+          <div class="jp-InputPrompt jp-InputArea-prompt"></div>
+          <div
+            class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput"
+            data-mime-type="text/markdown"
+          ></div>
         </div>
       </div>
     </div>
