@@ -62,11 +62,14 @@
                     <p style="text-align: center">
                       <a href="mailto:ethantqiu+website@berkeley.edu">Email</a>
                       &nbsp;/&nbsp;
-                      <a href="data/Resume.pdf">CV</a> &nbsp;/&nbsp;
+                      <a href="data/Resume.pdf">CV</a>
+                      &nbsp;/&nbsp;
                       <!-- <a href="data/JonBarron-bio.txt">Bio</a> &nbsp;/&nbsp; -->
                       <!-- <a href="https://scholar.google.com/citations?hl=en&user=jktWnL8AAAAJ">Scholar</a> &nbsp;/&nbsp; -->
                       <!-- <a href="https://twitter.com/jon_barron">Twitter</a> &nbsp;/&nbsp; -->
                       <a href="https://github.com/TianshuangQiu/">Github</a>
+                      &nbsp;/&nbsp;
+                      <a href="www.linkedin.com/in/ethantqiu">LinkedIn</a>
                     </p>
                   </td>
                   <td style="padding: 2.5%; width: 40%; max-width: 40%">
@@ -122,8 +125,66 @@
                 margin-left: auto;
               "
             >
+              <!-- RESEARCH PROJECTS BEGIN-->
               <tbody>
-                <!-- RESEARCH PROJECTS BEGIN-->
+                <tr
+                  onmouseout="blox_stop()"
+                  onmouseover="blox_start()"
+                  bgcolor="#ffffff"
+                >
+                  <td style="padding: 20px; width: 25%; vertical-align: middle">
+                    <div class="one">
+                      <div class="two" id="blox_image">
+                        <video width="100%" height="100%" muted autoplay loop>
+                          <source src="images/blox.mov" type="video/mp4" />
+                          Your browser does not support the video tag.
+                        </video>
+                      </div>
+                      <img src="images/blox.png" width="160" />
+                    </div>
+                    <script type="text/javascript">
+                      function blox_start() {
+                        document.getElementById("blox_image").style.opacity =
+                          "1";
+                      }
+
+                      function blox_stop() {
+                        document.getElementById("blox_image").style.opacity =
+                          "0";
+                      }
+                      blox_stop();
+                    </script>
+                  </td>
+                  <td style="padding: 20px; width: 75%; vertical-align: middle">
+                    <a href="https://bloxnet.org/">
+                      <span class="papertitle">
+                        Blox-Net: Generative Design-for-Robot-Assembly using VLM
+                        Supervision, Physics Simulation, and A Robot with Reset
+                      </span>
+                    </a>
+                    <br />
+                    Andrew Goldberg, Kavish Kondap,
+                    <strong> Tianshuang Qiu </strong>, Zehan Ma, Letian Fu,
+                    Justin Kerr, Huang Huang, Kaiyuan Chen, Kuan Fang, Ken
+                    Goldberg
+                    <br />
+                    <em>arXiv</em>, 2024
+                    <br />
+                    <a href="https://bloxnet.org/">project page</a>
+                    /
+                    <a href="https://arxiv.org/abs/2409.17126">arXiv</a>
+                    <p></p>
+                    <p>
+                      Blox-Net iteratively prompts a VLM with a simulation
+                      in-the-loop to generate designs based on a text prompt
+                      using a set of blocks and assembles them with a real
+                      robot. The robot can reset the environment to
+                      automatically retry failed attempts.
+                    </p>
+                  </td>
+                </tr>
+              </tbody>
+              <tbody>
                 <tr
                   onmouseout="bomp_stop()"
                   onmouseover="bomp_start()"
@@ -149,7 +210,7 @@
                         document.getElementById("bomp_image").style.opacity =
                           "0";
                       }
-                      cat3d_stop();
+                      bomp_stop();
                     </script>
                   </td>
                   <td style="padding: 20px; width: 75%; vertical-align: middle">
