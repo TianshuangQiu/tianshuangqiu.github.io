@@ -47,19 +47,19 @@
                       Tianshuang (Ethan) Qiu
                     </p>
                     <p>
-                      I'm a researcher at
-                      <a href="https://bair.berkeley.edu/"> BAIR </a> in
-                      Berkeley, where I am currently a Master's student. I am
-                      interested in computer vision, deep learning, and
-                      robotics. I am advised by
+                      I am currently a Research Engineer at <a href="https://www.generalrobotics.company/">General Robotics</a>, where I am working on general AI models for robot manipulation.
+                      <br>
+                      I graduated with a Master's and bachelor's degree in EECS from the University of California, Berkeley.
+                      I was a researcher at <a href="https://bair.berkeley.edu/"> BAIR </a>, advised by
                       <a href="https://goldberg.berkeley.edu/">Ken Goldberg</a>.
-                      I love being at the intersection of technology and art. I
-                      am currently a consultant for
+                      
+                      <br>I love being at the intersection of technology and art. I
+                      was on the team for 
                       <a href="https://www.exploratorium.edu/">
                         the Exploratorium</a
                       >
-                      where I am designing and building an installation for the
-                      upcoming AI themed exhibitions in summer of 2025.
+                      where we built <a href="https://www.exploratorium.edu/visit/calendar/after-dark-dance-machine">
+                        Manifold: Learning How to Be Lovable</a>.
                     </p>
                     <p style="text-align: center">
                       <a href="mailto:ethantqiu+website@berkeley.edu">Email</a>
@@ -131,13 +131,46 @@
               <!-- RESEARCH PROJECTS BEGIN-->
               <tbody>
                 <tr bgcolor="#ffffff">
-                  <td style="padding: 20px; width: 25%; vertical-align: middle">
+                  <td style="padding: 20px; width: 25%; vertical-align: top">
+                    <div class="one">
+                      <div class="two" id="omni_scan_image"></div>
+                      <img src="images/omniscan.png" width="160" />
+                    </div>
+                  </td>
+                  <td style="padding: 20px; width: 75%; vertical-align: middle">
+                    <a href="https://berkeleyautomation.github.io/omni-scan/">
+                      <span class="papertitle">
+                        Omni-Scan: 
+                        Creating Visually-Accurate Digital Twin Object Models
+                        Using a Bimanual Robot with Handoff and Gaussian Splat Merging
+                      </span>
+                    </a>
+                    <br />
+                      <strong>Tianshuang Qiu</strong>, Zehan Ma, Karim El-Refai, Hiya Shah, Justin Kerr, Chung Min Kim, Ken Goldberg
+                    <br />
+                    <!-- <em></em>, 2024 -->
+                    <br />
+                    <a href="https://berkeleyautomation.github.io/omni-scan/">project page</a>
+                    /
+                    <a href="https://arxiv.org/abs/2508.00354">arXiv</a>
+                    <p></p>
+                    <p>
+                     Omni-Scan is a pipeline for producing high-quality 3D Gaussian Splat models using a bi-manual robot that grasps an object with one gripper and rotates the object with respect to a stationary camera. 
+                     The 3DGS training pipeline is modified to support concatenated datasets with gripper occlusion, producing an omni-directional model of the object. 
+                     Omni-Scan can perform part defect inspection, identifying visual and geometric defects in different industrial and household objects.
+                    </p>
+                  </td>
+                </tr>
+              </tbody>
+              <tbody>
+                <tr bgcolor="#ffffff">
+                  <td style="padding: 20px; width: 25%; vertical-align: top">
                     <div class="one">
                       <div class="two" id="myl_image"></div>
                       <img src="images/myl.jpg" width="160" />
                     </div>
                   </td>
-                  <td style="padding: 20px; width: 75%; vertical-align: middle">
+                  <td style="padding: 20px; width: 75%; vertical-align: top">
                     <a href="https://alonsorobots.github.io/6/">
                       <span class="papertitle">
                         Made-ya-look: Using Diffusion Models to Modify Gaze
@@ -150,7 +183,6 @@
                     <!-- <em></em>, 2024 -->
                     <br />
                     <a href="https://alonsorobots.github.io/6/">project page</a>
-                    / Ongoing Project
                     <!-- <a href="https://arxiv.org/abs/2409.17126">arXiv</a> -->
                     <p></p>
                     <p>
@@ -270,7 +302,7 @@
                     <div class="one">
                       <div class="two" id="bomp_image">
                         <video width="100%" height="100%" muted autoplay loop>
-                          <source src="images/bomp.mov" />
+                          <source src="images/bomp.mov" type="video/mp4" />
                           Your browser does not support the video tag.
                         </video>
                       </div>
@@ -340,7 +372,7 @@
               <tbody>
                 <tr>
                   <td style="padding: 20px; width: 25%; vertical-align: middle">
-                    <img src="images/cv.png" />
+                    <img src="images/cv.png" alt="Computer Vision course projects" />
                   </td>
                   <td width="75%" valign="center">
                     <a href="pages/cs180.html"
