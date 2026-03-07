@@ -133,3 +133,9 @@ h2 {
 span.highlight {
   background-color: #ffffd0;
 }
+
+@media (prefers-color-scheme: dark) {
+  img[alt="Computer Vision course projects"] {
+    filter: invert(1);
+  }
+}
